@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:               # 让 GITHUB_TOKEN 有读包权限
       contents: read
-      packages: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,7 +19,7 @@ jobs:
           scope: '@heywoogames'
       - run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm test
 
   publish-gpr:
@@ -33,11 +33,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: 'package.json'
-          registry-url: https://npm.pkg.github.com  # 指向 GitHub Packages
-          scope: '@heywoogames'                         # 你的包作用域
+          registry-url: https://npm.pkg.github.com
+          scope: '@heywoogames'
       - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
