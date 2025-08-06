@@ -1,0 +1,32 @@
+{
+    "mservice":{
+        "enable": true,
+        "port": 11180,
+        "cors": ["regex:127.0.0.1:[0-9]{1,}"]
+    },
+    "plugins": {
+        "plugin2": {
+            "path": "./plugins/plugin2",
+            "enable": false,
+            "dependencies":["redis"]
+        },
+        "plugin3": {
+            "path": "./plugins/plugin3",
+            "enable": true,
+            "dependencies":["plugin2"]
+        },
+        "redis": {
+            "path": "./plugins/plugin1",
+            "enable": true,
+            "alias": "_rd",
+            "cfgName": "db"
+        }
+    },
+    "nodeName": "node1",
+    "cfgRedis": {
+        "enable": false,
+        "key": "appCfg",
+        "mqAlias": "_mqb",
+        "rdAlias": "_rd"
+    }
+}

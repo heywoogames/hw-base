@@ -1,0 +1,13 @@
+{
+    "name": "hw-base-test",
+    "version": "0.0.0",
+    "description": "Hw library base test",
+    "main": "test.js",
+
+  "apiGen": {
+    "apis": [
+      "mservices/services/*.js"
+    ]
+  }
+}
+  

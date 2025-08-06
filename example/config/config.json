@@ -1,0 +1,25 @@
+{
+    "mservice":{
+        "enable": true,
+        "path": "mservices",
+        "ip":"127.0.0.1",
+        "port": 11180
+    },
+    "plugins": {
+        "plugin2": {
+            "path": "./plugins/plugin2",
+            "enable": true,
+            "dependencies":["redis"]
+        },
+        "plugin3": {
+            "path": "./plugins/plugin3",
+            "enable": true,
+            "dependencies":["plugin2"]
+        },
+        "redis": {
+            "path": "./plugins/plugin1",
+            "enable": true,
+            "alias": "_rd"
+        }
+    } 
+}

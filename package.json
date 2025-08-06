@@ -1,0 +1,37 @@
+{
+  "name": "@heywoogames/hw-base",
+  "version": "1.0.0",
+  "description": "hw library base",
+  "main": "main.js",
+  "types": "types/index.d.ts",
+  "bin": {},
+  "scripts": {
+    "test": "node ./example/test.js",
+    "lint": "npx eslint ."
+  },
+  "keywords": [
+    "hw"
+  ],
+  "repository": "https://github.com/heywoogames/hw-base.git",
+  "author": "shudingbo",
+  "publishConfig": {
+    "@heywoogames:registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "@heywoogames/hw-cache": "~1.0.0",
+    "@heywoogames/hw-logger": "~0.0.3",
+    "@heywoogames/hw-utils": "~1.0.0",
+    "body-parser": "^1.20.2",
+    "commander": "^9.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "log4js-logstash-tcp": "^2.0.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.27.0",
+    "eslint-plugin-jsdoc": "^50.6.17",
+    "eslint-plugin-node": "^11.1.0"
+  }
+}
