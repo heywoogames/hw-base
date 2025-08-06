@@ -60,14 +60,6 @@ Options:
   --ms_prefix <string>                 微服务路由前缀
   -h, --help                           display help for command
 ```
-**注意：** 
- 1. ```ms_```,```na_``` 开始的参数，必须要 ```-m``` 开启才有作用
- 1. ```na_``` 开始的参数，需要```--ms_disable``` 为false,才有效
-
-下面是通过命令行开启的例子
-```
-node . --app_name=test -m --ms_ip=192.68.20.160 --ms_port=666 --na_name_host=222.18.149.62:8848 --na_cfg_disable
-```
 
 ### 扩展命令行 参数
 HwAppBase 提供 下列函数，用于扩展 命令行
