@@ -1,6 +1,9 @@
 {
   "name": "@heywoogames/hw-base",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20"
+  },
   "description": "hw library base",
   "main": "main.js",
   "types": "types/index.d.ts",
