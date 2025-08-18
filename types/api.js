@@ -46,7 +46,7 @@
  *   /echo:
  *     get:
  *       summary: echo测试接口
- *       description: 测试接口
+ *       tags: [hwBase]
  *       parameters:
  *         - in: query
  *           name: time
@@ -75,7 +75,7 @@
  *   /info:
  *     get:
  *       summary: 获取服务信息
- *       description: 获取服务信息
+ *       tags: [hwBase]
  *       responses:
  *         '200':
  *           description: 成功
@@ -131,7 +131,7 @@
  *   /mcache:
  *     get:
  *       summary: 获取缓存信息
- *       description: 获取缓存信息
+ *       tags: [hwBase]
  *       parameters:
  *         - in: query
  *           name: show
@@ -189,7 +189,7 @@
  *   /varget:
  *     get:
  *       summary: 获取变量
- *       description: 获取变量
+ *       tags: [hwBase]
  *       parameters:
  *         - in: query
  *           name: name
@@ -218,7 +218,7 @@
  *   /api:
  *     get:
  *       summary: 获取api列表
- *       description: 获取api列表
+ *       tags: [hwBase]
  *       responses:
  *         '200':
  *           description: 成功

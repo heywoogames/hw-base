@@ -59,6 +59,7 @@ Options:
   --ms_port <number>                   The service port number
   --ms_prefix <string>                 微服务路由前缀
   -h, --help                           display help for command
+  --api_doc                            gen swagger api doc (default: false)
 ```
 
 ### 扩展命令行 参数
@@ -159,8 +160,6 @@ class Main extends base.HwAppBase
 为APP提供微服务功能；
  * 采用 http 协议对外提供接口调用；
 
-
-
 下面是配置例子
 ``` js
 {
@@ -228,6 +227,34 @@ cfgRedis: {
 **注意**
 > - <font color="red">serverId 会被 命令行参数 --app_name 更改</font>
 
+
+### api 文档
+
+框架提供 --api_doc 命令行参数，用于生成 api文档，可以通过 /api_docs 访问.
+
+**配置**
+
+直接在 `package.json`的`apiGen.apis`制定.
+
+```json 
+{
+   "apiGen": {
+    "apis": [
+      "node_modules/@cdyw/nrs-types/*.d.ts",
+      "node_modules/@cdyw/nrs-types/api/*.d.ts",
+      "mservices/services/*.js"
+    ],
+    "allowedTags": [""]
+
+  }
+}
+```
+
+* apis, 制定要生成api文档的文件
+* allowedTags, 制定要生成api文档的标签，不配置，则生成所有标签的api文档
+
+
+
 ## 插件
 插件基类 ``` HwPluginBase ```，为插件提供基本属性 派生自 EventEmitter
 
@@ -241,7 +268,11 @@ cfgRedis: {
  * getConfig() 获取配置，如果配置设置了昵称，则已昵称为名称，否则已插件名称，从app获取插件配置
 
 
+# ChangeLog
 
+# 1.0.1 / 2025-08-18
+
+* apiGen 增加参数 `allowedTags: []`, 用于指定允许生成的api标签
 
 
  [commander]: https://www.npmjs.com/package/commander
