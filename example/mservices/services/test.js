@@ -39,4 +39,7 @@ class TestService
   }
 }
 
-module.exports = TestService;
+module.exports = { 
+  nserviceDefault: TestService,
+  TestService
+};

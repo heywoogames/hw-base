@@ -42,8 +42,10 @@ class Rediscli extends HwPluginBase
 
 
 
-module.exports = Rediscli;
-
+module.exports = { 
+  npluginDefault: Rediscli,
+  Rediscli
+};
 
 
 

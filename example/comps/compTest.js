@@ -46,9 +46,7 @@ class CompTest extends HwCompBase
   }
 }
 
-
-
-
-
-module.exports = CompTest;
-
+module.exports = {
+  ncompDefault: CompTest,
+  CompTest
+};
