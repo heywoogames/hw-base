@@ -25,11 +25,11 @@
     "@heywoogames/hw-logger": "~0.0.3",
     "@heywoogames/hw-utils": "~1.0.0",
     "body-parser": "^1.20.2",
-    "commander": "^9.5.0",
+    "commander": "^11.1.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-validator": "^6.15.0",
-    "log4js-logstash-tcp": "^2.0.5",
+    "ioredis": "^5.7.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },

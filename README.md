@@ -240,8 +240,6 @@ cfgRedis: {
 {
    "apiGen": {
     "apis": [
-      "node_modules/@cdyw/nrs-types/*.d.ts",
-      "node_modules/@cdyw/nrs-types/api/*.d.ts",
       "mservices/services/*.js"
     ],
     "allowedTags": [""]
@@ -266,13 +264,6 @@ cfgRedis: {
 
 ### 方法
  * getConfig() 获取配置，如果配置设置了昵称，则已昵称为名称，否则已插件名称，从app获取插件配置
-
-
-# ChangeLog
-
-# 1.0.1 / 2025-08-18
-
-* apiGen 增加参数 `allowedTags: []`, 用于指定允许生成的api标签
 
 
  [commander]: https://www.npmjs.com/package/commander
