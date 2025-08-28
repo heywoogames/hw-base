@@ -12,7 +12,7 @@ class Main extends base.HwAppBase
     this.timer = null;
 
     this.on( 'cfg_change', ( alias, content, dataId ) => {
-      console.log( `--- alias: ${alias} dataId: ${dataId}, cfgChange: ` );
+      console.log( `--- alias: ${alias} dataId: ${dataId}, cfgChange: ${content}` );
     } );
   }
 
@@ -39,20 +39,39 @@ class Main extends base.HwAppBase
 
   async onBeforeStart (){
     this.logger.info( this.env.PROJ_PATH );
+    let cnt = 3;
 
     this.timer = setInterval( async ()=>{
-      this.stop();
+      cnt--;
+      if( cnt <= 0 ) {
+        this.stop();
+      } else {
+        // run test
+        const cfg = await this.getConfig( 'testConfig' );
+        console.log( '--- testConfig', cfg );
+
+        const ser = await this._ms.getService( 'hw.qt.marketDataReceive' );
+        console.log( '--- hw.qt.marketDataReceive', ser );
+
+
+
+      }
     }, 5000 );
     console.log( '-- onBeforeStart' );
   }
 
   async onAfterStart (){
     console.log( '-- onAfterStart' );
-    this._rd.getData();
 
     this._ms.registerMethod( 'get','/testReg', ( req, res )=>{
       res.send( {a:'testReg'} );
     } );
+
+
+    this.on( 'services_change', ( services, hosts ) => {
+      console.log( 'services_change', services, hosts );
+    } );
+
   }
 
   async onBeforeStop (){

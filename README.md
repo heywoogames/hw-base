@@ -168,6 +168,42 @@ class Main extends base.HwAppBase
     "ip": "127.0.0.1"
     "port": 80,
     "cors": ["regex:127.0.0.1:[0-9]{1,}"],
+    "finder": {
+        "enable": true,
+        "base": {
+            "serverAddr": "127.0.0.1:8848",
+            "namespace": "public",
+            "group": "DEFAULT_GROUP",
+            "redis": {
+                "host": "127.0.0.1",
+                "port": 6379,
+                "password": "111111",
+                "db": 1
+            }
+        },
+        "naming": {
+            "enable": true,
+            "serviceName": "hw.test",
+            "weight": 1,
+            "subscribe": [
+                {
+                    "serviceName": "hw.qt.marketDataReceive",
+                    "group": "DEFAULT_GROUP"
+                }
+            ]
+        },
+        "config": {
+            "enable": true,
+            "dependencies": [ "redis"],
+            "subscribe": [
+                {
+                    "dataId": "redis",
+                    "group": "DEFAULT_GROUP",
+                    "alias": "redis"
+                }
+            ]
+        }
+    }
 },
 
 

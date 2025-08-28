@@ -1,5 +1,5 @@
 
-
+import { HwRedisCfg } from "./HwRedis";
 
 export interface AppEnv{
     /** 工程根路径 */
@@ -59,6 +59,85 @@ export interface Logger{
     mark(message: any, ...args: any[]): void;
 }
 
+export type Instance ={
+    /** 实例ID */
+    instanceId: string;
+    /** 实例IP */
+    ip: string;
+    /** 实例端口 */
+    port: number;
+    /** 实例健康状态 */
+    healthy: boolean;
+    /** 实例启用状态 */
+    enabled: boolean;
+    /** 实例权重 */
+    weight: number;
+    /** 实例元数据 */
+    metadata?: Record<string, any>;
+
+}
+
+export type FinderBase = {
+    serverAddr: string;
+    namespace?: string;
+    group?: string;
+    redis: HwRedisCfg;
+}
+
+
+export type FinderSubConfig = {
+
+    /** Name service name */
+    serviceName: string;
+
+    /** group, default use FinderNamingConfig.group */
+    group?: string;
+
+    /** 别名 */
+    alias?: string;
+
+}
+
+
+export type FinderNamingConfig = {
+    /** 是否开启 nacos 注册 */
+    enable: boolean;
+    serviceName: string;
+    weight?: number;
+    subscribe?: FinderSubConfig[];
+    
+}
+
+/** group, default use FinderConfigConfig.group */
+export type FinderCfgSubConfig = {
+    dataId: string;
+    group?: string;
+    alias: string;
+}
+
+export type FinderConfigConfig = {
+    /** 是否开启 nacos 配置服务 */
+    enable: boolean;
+    dependencies?: string[];
+    subscribe?: FinderCfgSubConfig[];
+}
+
+
+
+export type FinderConfig = {
+    /** 是否开启 nacos 注册 */
+    enable: boolean;
+
+    base: FinderBase,
+    
+    naming: FinderNamingConfig,
+    
+    config: FinderConfigConfig
+}
+
+
+
+
 export type MicroServiceConfig = {
     /** 是否开启 */
     enable: boolean;
@@ -74,23 +153,11 @@ export type MicroServiceConfig = {
      * string[], 指定源OK
      * undefined, 不处理跨域
      */
-    cors?: true | string[]
+    cors?: true | string[];
+
+    /** 服务发现配置 */
+    finder: FinderConfig;
+
 }
 
-/**
- * 雷达产品名称信息
- * @deprecated
- */
-export type RadarProductNameInfo = {
-    /** 是否雷达产品 */
-    status: boolean,
-    base:string, 
-    name:string, 
-    compress: false|'zip'|'bz2'|'zst'|'nc',
-    date:string, 
-    tm: number, 
-    pid: number, 
-    mcode:string, 
-    mcode1:string, 
-    rain_type: number
-}
+

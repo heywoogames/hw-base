@@ -33,6 +33,7 @@ export interface HwHost {
         nodeName: string
         rdCfgKey: string
         createTm: string
+        updateTm: number
         appName: string
         [key: string]: string
     }
@@ -259,4 +260,16 @@ export type HwMsResp = {
     msg: string
     data: object | null
 
+}
+
+
+export type HwServiceChange = {
+    /** 上线/下线 */
+    act: 'up' | 'down' |'stat'
+
+    /** 实例ID */
+    instanceId: string,
+
+    /** 实例信息 */
+    info: import('./HwBase').Instance
 }
