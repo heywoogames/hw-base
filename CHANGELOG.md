@@ -3,6 +3,13 @@
 
 # ChangeLog
 
+# 1.1.3 / 2025-10-20
+
+* 更新 rdFinder 连接 redis 时，重试策略（ 100 ms 递增，最大 2000 ms）
+* 修复 rdNaming  deregisterInstance 方法， 当 redis 没有连接时，推出app一直卡住的Bug
+* 修复 启动没有尝试加载 依赖的配置的 Bug
+
+
 # 1.1.2 / 2025-08-30
 
 * 修复 finder redis 的 记录分组列表名字拼写错误

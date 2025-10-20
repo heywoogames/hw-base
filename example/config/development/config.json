@@ -4,11 +4,11 @@
         "port": 11190,
         "cors": ["regex:127.0.0.1:[0-9]{1,}"],
         "finder": {
-            "enable": false,
+            "enable": true,
             "base": {
                 "serverAddr": "127.0.0.1:8848",
-                "namespace": "public",
-                "group": "DEFAULT_GROUP",
+                "namespace": "hwqt",
+                "group": "pro",
                 "redis": {
                     "host": "127.0.0.1",
                     "port": 6379,
@@ -23,7 +23,7 @@
                 "subscribe": [
                     {
                         "serviceName": "hw.qt.marketDataReceive",
-                        "group": "DEFAULT_GROUP"
+                        "group": "pro"
                     }
                 ]
             },
@@ -33,7 +33,7 @@
                 "subscribe": [
                     {
                         "dataId": "redis",
-                        "group": "DEFAULT_GROUP",
+                        "group": "pro",
                         "alias": "redis"
                     }
                 ]
