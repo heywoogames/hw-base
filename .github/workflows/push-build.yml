@@ -10,6 +10,11 @@ jobs:
     permissions:               # 让 GITHUB_TOKEN 有读包权限
       contents: read
       packages: read
+    services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
