@@ -1,9 +1,12 @@
 const { HwCompBase } = require("../../lib/hwCompBase");
 
+/**
+ * @augments {HwCompBase<import('../app').Main>}
+ */
 class CompTest extends HwCompBase {
   /**
    *
-   * @param {import('../../lib/hwbase').HwAppBase} app - app instance
+   * @param {import('../app').Main} app - app instance
    */
   constructor(app) {
     super(app);

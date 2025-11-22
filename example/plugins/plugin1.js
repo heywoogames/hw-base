@@ -1,15 +1,18 @@
 "use strict";
 
 const { HwPluginBase } = require("../../lib/pluginBase");
-
+/**
+ * @augments {HwPluginBase<import('../app').Main>}
+ */
 class Rediscli extends HwPluginBase {
   /**
    *
-   * @param {import('../../types').HwAppBase} app - app instance
+   * @param {import('../app').Main} app - app instance
    * @param {import('../../types').PluginConfigItem} plugInfo - plugin info
    */
   constructor(app, plugInfo) {
     super(app, plugInfo);
+    console.log("-- ", this.app.env.serverId);
   }
 
   async getData() {
