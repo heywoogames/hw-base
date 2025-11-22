@@ -60,7 +60,7 @@
  *           content:
  *             application/json:
  *               schema:
-  *                 allOf:
+ *                 allOf:
  *                   - $ref: '#/components/schemas/HwResponse'
  *                   - type: object
  *                     properties:
@@ -82,7 +82,7 @@
  *           content:
  *             application/json:
  *               schema:
-  *                 allOf:
+ *                 allOf:
  *                   - $ref: '#/components/schemas/HwResponse'
  *                   - type: object
  *                     properties:
@@ -154,7 +154,7 @@
  *             type: string
  *           description: 帮助信息
  *           example: 1
- * 
+ *
  *       responses:
  *         '200':
  *           description: 成功
@@ -181,7 +181,6 @@
  *                             type: object
  *                             description: 帮助信息
  */
-
 
 /**
  * @swagger

@@ -1,45 +1,33 @@
-'use strict';
+"use strict";
 
-class Plugin3
-{
+class Plugin3 {
   /**
-   * 
+   *
    * @param {import('../../types').HwAppBase} app - app instance
    */
-  constructor ( app ) {
+  constructor(app) {
     this._main = app;
   }
 
-  async getData (){
-    console.log(  '--- plugin3 getData' );
+  async getData() {
+    console.log("--- plugin3 getData");
   }
 
-  async init ( ) {
-    console.log( '---\t plugin3 init' );
+  async init() {
+    console.log("---\t plugin3 init");
   }
 
-
-  async stop () {
-
-    console.log( '---\t plugin3 stop' );
+  async stop() {
+    console.log("---\t plugin3 stop");
   }
 
-  async start () {
-    console.log( '---\t plugin3 start' );
+  async start() {
+    console.log("---\t plugin3 start");
   }
 
-  async afterStartAll () {
-    console.log( '---\t plugin3 start all' );
+  async afterStartAll() {
+    console.log("---\t plugin3 start all");
   }
-
 }
 
-
-
-
 module.exports = Plugin3;
-
-
-
-
-
