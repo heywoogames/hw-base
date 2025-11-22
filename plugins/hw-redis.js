@@ -3,7 +3,9 @@
 const {Redis} = require( 'ioredis' );
 
 const { HwPluginBase } = require( '../lib/pluginBase' );
-
+/**
+ * @augments {HwPluginBase<import('../lib/hwbase').HwAppBase>}
+ */
 class RedisCli extends HwPluginBase
 {
   /** 包含的 redis  实例 
@@ -145,7 +147,8 @@ class RedisCli extends HwPluginBase
    * @param {import('../types/HwRedis').HwRedisCfg} cfg 实例配置
    * @param {boolean} isSub - 是否订阅类型
    *    - false， 不是， 如果实例不存在，会创建新的，如果存在，重用
-   *    - true,  是， 对于订阅类型的，就创建一个新的
+   *    - true,  是， 对于订阅类型的，就创建一个新的实例
+   * @returns { Promise<Redis>}
    */
   async getIns ( name, cfg, isSub = false ) {
     const ins = this.#makeIns( name, cfg, isSub );

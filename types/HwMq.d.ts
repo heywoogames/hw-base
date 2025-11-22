@@ -2,6 +2,7 @@
 import { HwPluginBase } from "../lib/pluginBase";
 import { Redis} from 'ioredis'
 import type {PluginConfigItem} from './HwBase'
+import type {HwAppBase} from './HwAppBase'
 
 export interface HwMQCfg {
     driver: 'redis',
@@ -14,11 +15,11 @@ export interface HwMQCfg {
 }
 
 interface MqExtCfg  {
-    /** 是否禁用 发布,缺省 false */
-    enablePub?: boolean = false
+    /** 是否禁用 发布, @default false */
+    enablePub?: boolean
 
-    /** 是否禁用 订阅,缺省 true */
-    enableSub: boolean = true
+    /** 是否禁用 订阅, @default true */
+    enableSub?: boolean
 }
 /**
  * mq 插件配置
@@ -35,7 +36,8 @@ export type CbMessage = (channel:string, message: string)=>void
 
 /**
  * @class HwMqCli Message Queue 客户端
- * @extends HwPluginBase
+ * @augments {HwPluginBase<HwAppBase>}
+ * 
  * 
  *  支持 redis 驱动，可以通过 插件配置可选依赖 optionalDependencies, 那么重用已有的redis实例，减少redis连接
  * 

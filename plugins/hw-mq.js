@@ -6,6 +6,7 @@ const { HwPluginBase } = require( '../lib/pluginBase' );
 
 /**
  * @class HwMqCli Message Queue 客户端
+ * @augments {HwPluginBase<import('../lib/hwbase').HwAppBase>}
  * 
  *  支持 redis 驱动，可以通过 插件配置可选依赖 optionalDependencies, 那么重用已有的redis实例，减少redis连接
  * 
