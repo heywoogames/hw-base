@@ -6,7 +6,7 @@ const { HwPluginBase } = require("../lib/pluginBase");
 /**
  * @augments {HwPluginBase<import('../lib/hwbase').HwAppBase>}
  */
-class RedisCli extends HwPluginBase {
+class HwRedisCli extends HwPluginBase {
   /** 包含的 redis  实例
    * @type {Record<string, import('ioredis').Redis>}
    *
@@ -216,6 +216,6 @@ class RedisCli extends HwPluginBase {
 }
 
 module.exports = {
-  npluginDefault: RedisCli,
-  RedisCli,
+  npluginDefault: HwRedisCli,
+  HwRedisCli,
 };

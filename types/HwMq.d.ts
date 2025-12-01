@@ -48,6 +48,19 @@ export type CbMessage = (channel: string, message: string) => void;
  *   - pmessage (pattern, channel, message)=> {}
  */
 export class HwMqCli extends HwPluginBase {
+  /** 根据模式订阅消息, 通过 回调函数 接收消息
+   *
+   * @param {string }  pattern 模式
+   * @param {CbPMessage} [fun] 回调函数
+   */
+  psubscribe(pattern: string, fun: CbPMessage): void;
+
+  /** 根据模式订阅消息,通过 pmessage 事件 接收消息
+   *
+   * @param {string[]}  pattern 模式
+   */
+  psubscribe(pattern: string[]): void;
+
   /** 根据模式订阅消息
    *
    * @param pattern 模式
@@ -60,6 +73,19 @@ export class HwMqCli extends HwPluginBase {
 
   /** 取消指定模式的订阅
    *
+   * @param {string }  pattern 模式
+   * @param {CbPMessage} [fun] 回调函数
+   */
+  punsubscribe(pattern: string, fun: CbPMessage): void;
+
+  /** 取消指定模式的订阅
+   *
+   * @param {string[]}  pattern 模式
+   */
+  punsubscribe(pattern: string[]): void;
+
+  /** 取消指定模式的订阅
+   *
    * @param pattern 模式
    * @param fun 绑定函数
    */
@@ -67,6 +93,19 @@ export class HwMqCli extends HwPluginBase {
     pattern: string | string[],
     fun?: (pattern: string, channel: string, message: string) => void,
   );
+
+  /**
+   * 订阅指定通道的消息， fun 回调函数接收消息
+   * @param channels 通道
+   * @param fun 回调函数
+   */
+  subscribe(channels: string, fun: CbMessage): void;
+
+  /**
+   * 订阅指定通道的消息， 通过 message 事件 接收消息
+   * @param {string[]} channels 通道数组
+   */
+  subscribe(channels: string[]): void;
 
   /** 订阅指定通道的消息
    *
@@ -77,6 +116,19 @@ export class HwMqCli extends HwPluginBase {
     channels: string | string[],
     fun?: (channel: string, message: string) => void,
   );
+
+  /** 取消指定通道的订阅
+   *
+   * @param {string } channels  要取消订阅的通道
+   * @param {CbMessage} [fun] 回调函数
+   */
+  unsubscribe(channels: string, fun: CbMessage): void;
+
+  /** 取消指定通道的订阅
+   *
+   * @param { string[]} channels  要取消订阅的通道
+   */
+  unsubscribe(channels: string[]): void;
 
   /** 取消指定通道的订阅
    *

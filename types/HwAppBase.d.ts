@@ -125,7 +125,13 @@ export interface HwAppCmdOpt {
   node_name?: string;
 }
 
-export interface HwExpressRequest extends Request {}
+export interface HwExpressRequest<
+  TParam = core.ParamsDictionary,
+  TResBody = any,
+  TReqBody = any,
+  TReqQuery = core.Query,
+  TLocals extends Record<string, any> = Record<string, any>,
+> extends Request<TParam, TResBody, TReqBody, TReqQuery, TLocals> {}
 
 declare global {
   namespace Express {
@@ -179,7 +185,10 @@ declare global {
   }
 }
 
-export interface HwExpressResponse extends Response {
+export interface HwExpressResponse<
+  ResBody = any,
+  Locals extends Record<string, any> = Record<string, any>,
+> extends Response<ResBody, Locals> {
   /**
    * 发送json响应
    *

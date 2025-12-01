@@ -10,9 +10,9 @@
     "[typescript]": {
         "editor.defaultFormatter": "oxc.oxc-vscode"
     },
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
-        "source.organizeImports": "never"
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "package.json": "*.json, README.md,.gitignore"
     },
     "search.exclude": {
         "**/node_modules": true,

@@ -180,7 +180,7 @@ class MqRedisDrive {
   }
 
   async #mkRedisIns() {
-    /** @type { import('../hw-redis').RedisCli } */
+    /** @type { import('../hw-redis').HwRedisCli } */
     const rd = /** @type {any} */ (this.cli.app.getPlugin("redis"));
     if (rd !== null) {
       if (this.#enableSub === true) {

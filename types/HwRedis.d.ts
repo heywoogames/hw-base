@@ -30,7 +30,7 @@ export type HwRedisPluginCfg = {
   instance: Record<string, HwRedisCfg>;
 };
 
-export class HwRediscli extends HwPluginBase {
+export class HwRedisCli extends HwPluginBase {
   /** 根据名字获取redis实例
    *
    * @param name 实例名字,不跟使用缺省的
