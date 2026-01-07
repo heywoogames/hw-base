@@ -75,6 +75,9 @@ export interface HwAppConfig {
   /** 内存缓存配置 */
   mcache?: YWCacheOptions;
 
+  /** 服务名称，在 config.json 里的配置,没有不会记录到redis */
+  serviceName?: string;
+
   /** 组件存放路径，缺省 在项目根目录下 comps 下 */
   compsPath?: string;
 

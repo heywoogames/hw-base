@@ -30,6 +30,7 @@
         "caughtErrorsIgnorePattern": "^err$"
       }
     ],
+    "no-await-in-loop": "off",
     "jsdoc/check-property-names": "warn",
     "jsdoc/check-tag-names": [
       "error",
