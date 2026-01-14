@@ -1,6 +1,9 @@
 # HW 框架开发规范
 
+ [Trae Rule](traeRule) | 
+
 > 📋 **适用范围**：本文档适用于所有基于 HW 框架开发的 Node.js 应用程序
+
 
 ## 📚 目录
 
@@ -17,11 +20,11 @@
 
 ### 核心概念
 
-| 概念 | 说明 | 示例 | 重点 |
-|---|---|---|---|
-| **插件** | 外部功能模块 | Redis、MQ、数据库连接 | 🔌 **通过配置自动挂载** |
-| **组件** | 业务功能封装 | 用户管理、数据处理 | 🧩 **通过继承实现** |
-| **微服务** | HTTP API 接口 | RESTful API 端点 | 🌐 **基于 Express 路由** |
+| 概念       | 说明          | 示例                  | 重点                    |
+| ---------- | ------------- | --------------------- | ----------------------- |
+| **插件**   | 外部功能模块  | Redis、MQ、数据库连接 | 🔌 **通过配置自动挂载**  |
+| **组件**   | 业务功能封装  | 用户管理、数据处理    | 🧩 **通过继承实现**      |
+| **微服务** | HTTP API 接口 | RESTful API 端点      | 🌐 **基于 Express 路由** |
 
 ## 🏗️ 项目结构
 
@@ -31,6 +34,12 @@ project-root/
 ├── mservices/            # 🌐 微服务目录 - HTTP API
 ├── config/               # ⚙️ 配置文件
 ├── doc/                  # 📖 文档目录
+├── htypes/               # 📖 需要提供给其他项目使用的类型定义(.d.ts) 放在这里，例如 api接口用到的相关类型定义
+├── types/                # 📖 项目内使用的类型定义(.d.ts) 放在这里
+├── schemas/              # 📖 需要对外提供的  json schema 定义文件
+├── lib/                  # 源码目录 - 业务逻辑实现
+    ├─ main.js            # 主入口文件 - 项目运行时，会自动加载这个文件
+    ├─ app.js             # App 类 - 项目入口类, 从 HwAppBase 继承（实现相关接口）
 └── index.d.ts           # 📝 TypeScript 类型定义
 ```
 
@@ -57,26 +66,23 @@ project-root/
 
 ### ⚠️ 命名规范（重点）
 
-| 项目 | 规范 | 示例 |
-|---|---|---|
-| **文件名** | 首字母小写 + 驼峰 | `userData.js` |
-| **类名** | 驼峰 + `Comp` 后缀 | `UserDataComp` |
+| 项目       | 规范                | 示例           |
+| ---------- | ------------------- | -------------- |
+| **文件名** | 首字母小写 + 驼峰   | `userData.js`  |
+| **类名**   | 驼峰 + `Comp` 后缀  | `UserDataComp` |
 | **挂载名** | `comp` + 文件名驼峰 | `compUserData` |
 
 ### 🎯 完整组件模板
 
 ```javascript
 // comps/userData.js - 注意文件名规范
-const { HwCompBase } = require("@heywoogames/hw-base");
+const { HwCompBase } = require("@heywoogames/hw-base/lib/hwCompBase");
 
 class UserDataComp extends HwCompBase {
   /**
    * ⚠️ 构造函数必须包含：
    * 1. super(app) 调用
    * 2. this.name 设置（格式：comp + 文件名驼峰）
-   * 3. 包含下面的jsdoc 描述
-   * 
-   *  @param {import('@heywoogames/hw-base').HwAppBase} app - app instance
    */
   constructor(app) {
     super(app);
@@ -119,9 +125,9 @@ module.exports = {
 
 ### ⚠️ 命名规范（重点区分）
 
-| 微服务类型 | 文件命名 | 类命名 | 说明 |
-|---|---|---|---|
-| **通用微服务** | 功能名 + `Ctl.js` | 功能名 + `Service` | 无数据库表 |
+| 微服务类型         | 文件命名                | 类命名                   | 说明                   |
+| ------------------ | ----------------------- | ------------------------ | ---------------------- |
+| **通用微服务**     | 功能名 + `Ctl.js`       | 功能名 + `Service`       | 无数据库表             |
 | **数据库表微服务** | **表名驼峰 + `Ctl.js`** | **表名驼峰 + `Service`** | ⚠️ **仅当有数据库表时** |
 
 **示例对比**：
@@ -133,7 +139,7 @@ module.exports = {
 ```javascript
 // mservices/services/authCtl.js - 通用微服务示例
 const { body } = require('express-validator');
-const { HwMSServiceBase } = require('@heywoogames/hw-base');
+const { HwMSServiceBase } = require('@heywoogames/hw-base/lib/msServiceBase');
 
 class AuthService extends HwMSServiceBase {
   #verRules = {
@@ -152,8 +158,6 @@ class AuthService extends HwMSServiceBase {
 
   /**
    * ⚠️ 所有处理函数必须是 async
-   * 1. 包含下列jsdoc 描述
-   * 
    * @param {import('@heywoogames/hw-base').HwExpressRequest} req
    * @param {import('@heywoogames/hw-base').HwExpressResponse} res
    */
@@ -256,31 +260,35 @@ class UserService extends HwMSServiceBase {
 
 ### ⚠️ 必须声明的类型
 
-```typescript
-// index.d.ts
-export module "@heywoogames/hw-base" {
-  export interface HwAppBase {
-    // ⚠️ 插件声明（必须与实际挂载名一致）
-    _rd: HwRedisCli;      // 对应 redis 插件
-    _db: any;              // 数据库插件
-    
-    // ⚠️ 组件声明（必须与实际组件名一致）
-    compUserData: InstanceType<typeof UserDataComp>;
-    compUser: InstanceType<typeof UserComp>;
-  }
-}
-```
+* 添加类型时，如果操作的是 index.d.ts 文件，不要 在 `//@s_*` 开始，`//@e_*` 之间添加，因为他们会被自动处理。 
+* index.d.ts 文件，用于统一导出所有类型(包括 htypes 文件夹下的类型)。
+* 在项目里 通过 jsdoc的 @type 标注类型时，可以通过 `@type {import('@types').类型名}` 来标注。
+
+#### htypes
+
+* htypes文件夹，用于存放需要提供给外部使用的类型定义文件， 例如微服务 接口使用到的类型。
+* 定义的类型 都需要 包含 @swagger 注释，用于生成 API 文档。
+* 文件夹下的各个文件，通过此文件夹下的 index.d.ts 文件统一导出。
+* 创建的 package.json的包名为 @htypes/<项目名>
+* 可以通过 npm run pub:types 发布到 npm 仓库
+* 项目的package.json（不是htypes文件夹下的）, 必须包含 @htypes/<项目名> 作为开发依赖（直接通过 file:./htypes 引入`{ "@htypes/<项目名>": "file:./htypes" }`）。
+
+#### types
+* types文件夹，用于存放项目内部使用的类型定义文件。
+* 文件夹下的各个文件，通过项目根文件夹下的 index.d.ts 文件统一导出。
+
+
 
 ## ✅ 最佳实践（重点提醒）
 
 ### 1. 🚨 常见错误
 
-| 错误类型 | 错误示例 | 正确做法 |
-|---|---|---|
-| **命名错误** | `UserService.js` | `userCtl.js` |
-| **挂载名错误** | `this.name = 'UserComp'` | `this.name = 'compUserData'` |
-| **文件位置错误** | `/services/user.js` | `/mservices/services/userCtl.js` |
-| **文件名规范错误** | `UserData.js` | `userData.js`（首字母小写） |
+| 错误类型           | 错误示例                 | 正确做法                         |
+| ------------------ | ------------------------ | -------------------------------- |
+| **命名错误**       | `UserService.js`         | `userCtl.js`                     |
+| **挂载名错误**     | `this.name = 'UserComp'` | `this.name = 'compUserData'`     |
+| **文件位置错误**   | `/services/user.js`      | `/mservices/services/userCtl.js` |
+| **文件名规范错误** | `UserData.js`            | `userData.js`（首字母小写）      |
 
 ### 2. ✅ 检查清单
 
