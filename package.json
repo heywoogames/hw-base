@@ -1,25 +1,22 @@
 {
   "name": "@heywoogames/hw-base",
-  "version": "1.1.7",
-  "engines": {
-    "node": ">=24"
-  },
+  "version": "1.1.8",
   "description": "hw library base",
+  "keywords": [
+    "hw"
+  ],
+  "author": "shudingbo",
+  "repository": "https://github.com/heywoogames/hw-base.git",
+  "bin": {},
   "main": "main.js",
   "types": "types/index.d.ts",
-  "bin": {},
+  "publishConfig": {
+    "@heywoogames:registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "test": "node ./example/test.js",
     "lint": "npx oxlint --config .oxlintrc.json",
     "format": "npx oxfmt --config .oxfmtrc.json"
-  },
-  "keywords": [
-    "hw"
-  ],
-  "repository": "https://github.com/heywoogames/hw-base.git",
-  "author": "shudingbo",
-  "publishConfig": {
-    "@heywoogames:registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "@heywoogames/hw-cache": "~1.0.0",
@@ -41,5 +38,8 @@
     "@types/swagger-ui-express": "^4.1.8",
     "oxfmt": "^0.42.0",
     "oxlint": "^1.57.0"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }
