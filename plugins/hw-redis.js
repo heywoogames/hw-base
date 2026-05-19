@@ -3,6 +3,7 @@
 const { Redis } = require("ioredis");
 
 const { HwPluginBase } = require("../lib/pluginBase");
+const { resolveEnvConfig } = require("../lib/envUtils");
 /**
  * @augments {HwPluginBase<import('../lib/hwbase').HwAppBase>}
  */
@@ -195,7 +196,8 @@ class HwRedisCli extends HwPluginBase {
 
     for (let insName in this._cfg.instance) {
       insNames.push(insName);
-      const cfg = this._cfg.instance[insName];
+      let cfg = this._cfg.instance[insName];
+      cfg = resolveEnvConfig(cfg);
       await this.getIns(insName, cfg, false);
     }
   }

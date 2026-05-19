@@ -263,6 +263,30 @@ cfgRedis: {
 **注意**
 > - <font color="red">serverId 会被 命令行参数 --app_name 更改</font>
 
+### 环境变量配置
+
+Redis (`redis.json`) 和 MQ (`mq.json`) 配置的 `host` / `password` 字段支持从环境变量读取：
+
+当字段值以 `"ENV_HW_"` 开头时，框架会将该值作为环境变量名，从 `process.env` 中读取真实值。
+
+**示例：**
+```json
+// redis.json
+{
+  "instance": {
+    "master": {
+      "host": "ENV_HW_REDIS_HOST",
+      "port": 6379,
+      "password": "ENV_HW_REDIS_PASSWORD"
+    }
+  }
+}
+```
+
+设置环境变量 `ENV_HW_REDIS_HOST=10.0.0.1`，`ENV_HW_REDIS_PASSWORD=secret` 后，实际连接将使用解析后的值。
+
+如果环境变量不存在，框架保留原值（连接时会报错）。
+
 
 ### api 文档
 

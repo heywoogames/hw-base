@@ -1,6 +1,6 @@
 {
   "name": "@heywoogames/hw-base",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "hw library base",
   "keywords": [
     "hw"
@@ -36,8 +36,9 @@
     "@types/express": "^4.17.21",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
-    "oxfmt": "^0.42.0",
-    "oxlint": "^1.57.0"
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">=24"

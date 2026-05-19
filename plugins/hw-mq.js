@@ -3,6 +3,7 @@
 const { MqRedisDrive } = require("./drv/drv_redis");
 
 const { HwPluginBase } = require("../lib/pluginBase");
+const { resolveEnvConfig } = require("../lib/envUtils");
 
 /**
  * @class HwMqCli Message Queue 客户端
@@ -34,6 +35,10 @@ class HwMqCli extends HwPluginBase {
       await this.getConfig()
     );
     const drv = this.cfg.driver ?? "redis";
+    if (drv === "redis" && this.cfg.redis) {
+      this.cfg.redis = resolveEnvConfig(this.cfg.redis);
+    }
+
     if (drv === "redis") {
       this.#drv = new MqRedisDrive(this, this.cfg);
       await this.#drv.init();
