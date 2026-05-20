@@ -265,9 +265,11 @@ cfgRedis: {
 
 ### 环境变量配置
 
-Redis (`redis.json`) 和 MQ (`mq.json`) 配置的 `host` / `password` 字段支持从环境变量读取：
+Redis (`redis.json`) 和 MQ (`mq.json`) 配置的 `host` / `password` / `port` 字段支持从环境变量读取：
 
 当字段值以 `"ENV_HW_"` 开头时，框架会将该值作为环境变量名，从 `process.env` 中读取真实值。
+- `host` / `password`：直接读取字符串值
+- `port`：读取后转换为数字，需为有效端口号（1-65535），否则保留原值
 
 **示例：**
 ```json
@@ -276,16 +278,16 @@ Redis (`redis.json`) 和 MQ (`mq.json`) 配置的 `host` / `password` 字段支�
   "instance": {
     "master": {
       "host": "ENV_HW_REDIS_HOST",
-      "port": 6379,
+      "port": "ENV_HW_REDIS_PORT",
       "password": "ENV_HW_REDIS_PASSWORD"
     }
   }
 }
 ```
 
-设置环境变量 `ENV_HW_REDIS_HOST=10.0.0.1`，`ENV_HW_REDIS_PASSWORD=secret` 后，实际连接将使用解析后的值。
+设置环境变量 `ENV_HW_REDIS_HOST=10.0.0.1`，`ENV_HW_REDIS_PORT=6379`，`ENV_HW_REDIS_PASSWORD=secret` 后，实际连接将使用解析后的值。
 
-如果环境变量不存在，框架保留原值（连接时会报错）。
+如果环境变量不存在或端口号无效，框架保留原值（连接时会报错）。
 
 
 ### api 文档

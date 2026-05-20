@@ -5,7 +5,7 @@
 
 ## 1.1.10 / 2026-05-19
 
-* Redis (`redis.json`) 和 MQ (`mq.json`) 配置的 `host` / `password` 支持环境变量解析：字段值以 `"ENV_HW_"` 开头时，从 `process.env[该值]` 读取真实值
+* Redis (`redis.json`) 和 MQ (`mq.json`) 配置的 `host` / `password` / `port` 支持环境变量解析：字段值以 `"ENV_HW_"` 开头时，从 `process.env[该值]` 读取真实值（port 自动转为数字）
 
 ## 1.1.8 / 2026-03-27
 

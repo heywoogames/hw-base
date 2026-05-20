@@ -54,10 +54,44 @@ console.log("\nTest 7: config without host/password");
 const cfg7 = { port: 6379, db: 2 };
 resolveEnvConfig(cfg7);
 assert(cfg7.port === 6379 && cfg7.db === 2, "other fields unchanged");
+
+console.log("\nTest 8: port from environment variable (string to number)");
+process.env.ENV_HW_TEST_PORT = "12345";
+const cfg8 = { host: "localhost", port: "ENV_HW_TEST_PORT" };
+resolveEnvConfig(cfg8);
+assert(cfg8.port === 12345, `port resolved to ${cfg8.port} (type: ${typeof cfg8.port})`);
+
+console.log("\nTest 9: port env var is invalid number");
+process.env.ENV_HW_BAD_PORT = "not_a_number";
+const cfg9 = { host: "localhost", port: "ENV_HW_BAD_PORT" };
+resolveEnvConfig(cfg9);
+assert(cfg9.port === "ENV_HW_BAD_PORT", `port kept original: ${cfg9.port}`);
+
+console.log("\nTest 10: port env var out of range");
+process.env.ENV_HW_BIG_PORT = "99999";
+const cfg10 = { host: "localhost", port: "ENV_HW_BIG_PORT" };
+resolveEnvConfig(cfg10);
+assert(cfg10.port === "ENV_HW_BIG_PORT", `port kept original (out of range): ${cfg10.port}`);
+
+console.log("\nTest 11: port env var is 0");
+process.env.ENV_HW_ZERO_PORT = "0";
+const cfg11 = { host: "localhost", port: "ENV_HW_ZERO_PORT" };
+resolveEnvConfig(cfg11);
+assert(cfg11.port === "ENV_HW_ZERO_PORT", `port kept original (zero): ${cfg11.port}`);
+
+console.log("\nTest 12: port already a number, unchanged");
+const cfg12 = { host: "localhost", port: 6379 };
+resolveEnvConfig(cfg12);
+assert(cfg12.port === 6379 && typeof cfg12.port === "number", `port unchanged: ${cfg12.port}`);
+
 delete process.env.ENV_HW_TEST_HOST;
 delete process.env.ENV_HW_TEST_PASS;
 delete process.env.ENV_HW_BOTH_HOST;
 delete process.env.ENV_HW_BOTH_PASS;
+delete process.env.ENV_HW_TEST_PORT;
+delete process.env.ENV_HW_BAD_PORT;
+delete process.env.ENV_HW_BIG_PORT;
+delete process.env.ENV_HW_ZERO_PORT;
 
 console.log(`\n=== Result: ${passed} passed, ${failed} failed ===`);
 process.exit(failed > 0 ? 1 : 0);
